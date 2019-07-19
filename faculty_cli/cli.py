@@ -1266,32 +1266,32 @@ def ls(project, path):
 
 
 @cli.group()
-def datasets():
+def dataset():
     """Manipulate files in Faculty datasets."""
     pass
 
 
-@datasets.command(name="get")
+@dataset.command(name="get")
 @click.argument("project")
 @click.argument("project_path")
 @click.argument("local_path")
-def datasets_get(project, project_path, local_path):
+def dataset_get(project, project_path, local_path):
     """Copy from a project's datasets to the local filesystem."""
     project_id = _resolve_project(project)
     faculty.datasets.get(project_path, local_path, project_id=str(project_id))
 
 
-@datasets.command(name="put")
+@dataset.command(name="put")
 @click.argument("project")
 @click.argument("local_path")
 @click.argument("project_path")
-def datasets_put(project, local_path, project_path):
+def dataset_put(project, local_path, project_path):
     """Copy from the local filesystem to a project's datasets."""
     project_id = _resolve_project(project)
     faculty.datasets.put(local_path, project_path, project_id=str(project_id))
 
 
-@datasets.command()
+@dataset.command()
 @click.argument("project")
 @click.argument("source_path")
 @click.argument("destination_path")
@@ -1303,7 +1303,7 @@ def mv(project, source_path, destination_path):
     )
 
 
-@datasets.command()
+@dataset.command()
 @click.argument("project")
 @click.argument("source_path")
 @click.argument("destination_path")
@@ -1315,7 +1315,7 @@ def cp(project, source_path, destination_path):
     )
 
 
-@datasets.command()
+@dataset.command()
 @click.argument("project")
 @click.argument("project_path")
 def rm(project, project_path):
@@ -1324,7 +1324,7 @@ def rm(project, project_path):
     faculty.datasets.rm(project_path, project_id=str(project_id))
 
 
-@datasets.command()
+@dataset.command()
 @click.argument("project")
 @click.argument("project_path")
 def rmdir(project, project_path):
@@ -1333,7 +1333,7 @@ def rmdir(project, project_path):
     faculty.datasets.rmdir(project_path, project_id=str(project_id))
 
 
-@datasets.command()
+@dataset.command()
 @click.argument("project")
 @click.argument("project_path")
 def etag(project, project_path):
@@ -1342,7 +1342,7 @@ def etag(project, project_path):
     click.echo(faculty.datasets.etag(project_path, project_id=str(project_id)))
 
 
-@datasets.command(name="ls")
+@dataset.command(name="ls")
 @click.argument("project")
 @click.option(
     "--prefix",
@@ -1352,7 +1352,7 @@ def etag(project, project_path):
 @click.option(
     "--show-hidden", is_flag=True, help="Include hidden files in the output."
 )
-def datasets_ls(project, prefix, show_hidden):
+def dataset_ls(project, prefix, show_hidden):
     """List contents of project datasets."""
     project_id = _resolve_project(project)
     for item in faculty.datasets.ls(
